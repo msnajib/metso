@@ -36,7 +36,7 @@ export default class Register extends Component {
             placeholder="Input your password ..." />
         </Form>
         <View style={styles.sectionFooter}>
-          <Button block style={styles.btnBlock}>
+          <Button block style={styles.btnBlock} onPress={()=>this.props.navigation.navigate('Feed')}>
             <Text style={styles.labelBtn}>{"SIGN IN"}</Text>
           </Button>
           <View style={styles.infoFooter}>

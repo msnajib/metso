@@ -46,7 +46,7 @@ class Login extends Component {
 						changeVisibility={this.handleVisibility} />
 				</Form>
 				<View style={styles.sectionFooter}>
-					<Button block style={styles.btnBlock}>
+					<Button block style={styles.btnBlock} onPress={()=>this.props.navigation.navigate('Feed')}>
 						<Text style={styles.labelBtn}>{"SIGN IN"}</Text>
 					</Button>
 					<View style={styles.infoFooter}>
