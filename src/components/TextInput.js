@@ -3,18 +3,35 @@ import { StyleSheet, View } from 'react-native';
 import { Label, Input, Item, Icon } from 'native-base';
 
 const TextInput = (props) => {
+
 	return (
 		<View style={styles.sectionForm}>
 			<Label style={styles.labelInput}>{props.label}</Label>
 			<Item regular style={styles.itemInput}>
 				<Input
+					secureTextEntry={props.secureTextEntry}
+					value={props.value}
+					onChangeText={props.onChangeText}
 					placeholder={props.placeholder}
+					keyboardType={props.keyboardType}
 					placeholderTextColor={"#747D8C"}
 					style={styles.input} />
-				<Icon active
-					type="MaterialIcons"
-					name="visibility-off"
-					style={styles.iconEye} />
+				{props.passsword ?
+					props.secureTextEntry ?
+						<Icon active
+							onPress={props.changeVisibility}
+							type="MaterialIcons"
+							name="visibility-off"
+							style={styles.iconEye} />
+						:
+						<Icon active
+							onPress={props.changeVisibility}
+							type="MaterialIcons"
+							name="visibility"
+							style={styles.iconEye} />
+					:
+					null
+				}
 			</Item>
 		</View>
 	)

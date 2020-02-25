@@ -5,13 +5,18 @@ import { Form, Button, Text } from 'native-base';
 import TextInput from './../components/TextInput';
 
 class Login extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-    };
-  }
+	constructor(props) {
+		super(props);
+		this.state = {
+			visibility: true
+		};
+	}
 
-  render() {
+	handleVisibility = () => {
+		this.setState({ visibility: !this.state.visibility })
+	}
+
+	render() {
 
 		this.props.navigation.setOptions({
 			headerMode: 'none',
@@ -31,17 +36,21 @@ class Login extends Component {
 				<Form>
 					<TextInput
 						label="Email"
-						placeholder="e.g. najib@mail.com" />
+						placeholder="e.g. najib@mail.com"
+						keyboardType={"email-address"} />
 					<TextInput
+						passsword={true}
+						secureTextEntry={this.state.visibility}
 						label="Password"
-						placeholder="Input your password ..." />
+						placeholder="Input your password ..."
+						changeVisibility={this.handleVisibility} />
 				</Form>
 				<View style={styles.sectionFooter}>
-					<Button block style={styles.btnBlock} onPress={() => this.props.navigation.navigate('Register')}>
+					<Button block style={styles.btnBlock}>
 						<Text style={styles.labelBtn}>{"SIGN IN"}</Text>
 					</Button>
 					<View style={styles.infoFooter}>
-						<Text style={styles.textInfo}>{"I don't have an account yet."} <Text style={styles.textInfoLink}>{"Register"}</Text></Text>
+						<Text style={styles.textInfo}>{"I don't have an account yet."} <Text style={styles.textInfoLink} onPress={() => this.props.navigation.navigate('Register')}>{"Register"}</Text></Text>
 					</View>
 				</View>
 			</View>
