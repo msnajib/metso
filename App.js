@@ -1,12 +1,7 @@
-import React, { Component } from 'react'
-import { Text, View } from 'react-native'
+import 'react-native-gesture-handler';
+import * as React from 'react';
+import RouteNavigation from './src/navigations/routeNavigation';
 
-export default class App extends Component {
-  render() {
-    return (
-      <View>
-        <Text> Setup Folder </Text>
-      </View>
-    )
-  }
+export default function App() {
+  return <RouteNavigation />
 }
