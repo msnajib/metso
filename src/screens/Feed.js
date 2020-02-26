@@ -13,7 +13,7 @@ class Feed extends Component {
 	}
 
 	handleComment() {
-		this.props.navigation.navigate('CreatePost')
+		this.props.navigation.navigate('CreateComment')
 	}
 
 	render() {
@@ -29,26 +29,28 @@ class Feed extends Component {
 		});
 
 		return (
-			<View>
+			<View style={{ backgroundColor: '#ffffff' }}>
 				<StatusBar backgroundColor="#007BBF" barStyle="light-content" />
 				<ScrollView>
 					{data_feed.map((item) =>
 						item.image === "" ?
 							<CardFeed
+								navigateDetail={() => this.props.navigation.navigate('DetailPost', { item })}
 								userImage={{ uri: item.createdBy.userAvatar }}
 								userName={item.createdBy.fullName}
 								datePost={item.createdAt}
 								caption={item.text}
-								actionComment={()=>this.handleComment()}
+								actionComment={() => this.handleComment()}
 							/>
 							:
 							<CardFeed
+								navigateDetail={() => this.props.navigation.navigate('DetailPost', { item })}
 								userImage={{ uri: item.createdBy.userAvatar }}
 								userName={item.createdBy.fullName}
 								datePost={item.createdAt}
 								caption={item.text}
 								imagePost={item.image}
-								actionComment={()=>this.handleComment()}
+								actionComment={() => this.handleComment()}
 							/>
 					)}
 				</ScrollView>
