@@ -2,6 +2,7 @@ import * as React from 'react';
 import { View, Text, Image, StyleSheet, TouchableOpacity } from 'react-native';
 import { Thumbnail, Icon } from 'native-base';
 import ViewMoreText from 'react-native-view-more-text';
+import Moment from 'moment';
 
 renderViewMore = (onPress) => {
   return (
@@ -22,7 +23,7 @@ const CardFeed = (props) => {
         <Thumbnail source={props.userImage} style={styles.avatar} />
         <View style={styles.infoUser}>
           <Text style={styles.nameUser}>{props.userName}</Text>
-          <Text style={styles.infoDatePost}>{props.datePost}</Text>
+          <Text style={styles.infoDatePost}>{`${Moment(props.datePost).format('DD MMM YYYY')} at ${Moment(props.datePost).format('HH:mm')}`}</Text>
         </View>
       </View>
       <View style={styles.sectionPost}>
