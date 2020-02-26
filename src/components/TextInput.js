@@ -9,6 +9,7 @@ const TextInput = (props) => {
 			<Label style={styles.labelInput}>{props.label}</Label>
 			<Item regular style={styles.itemInput}>
 				<Input
+					{...props}
 					secureTextEntry={props.secureTextEntry}
 					value={props.value}
 					onChangeText={props.onChangeText}

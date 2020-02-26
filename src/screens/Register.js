@@ -28,7 +28,7 @@ export default class Register extends Component {
           <TextInput
             label="Email"
             placeholder="e.g. najib@mail.com"
-						keyboardType={"email-address"} />
+            keyboardType={"email-address"} />
           <TextInput
             passsword={true}
             secureTextEntry={true}
@@ -36,11 +36,11 @@ export default class Register extends Component {
             placeholder="Input your password ..." />
         </Form>
         <View style={styles.sectionFooter}>
-          <Button block style={styles.btnBlock} onPress={()=>this.props.navigation.navigate('Feed')}>
+          <Button block style={styles.btnBlock} onPress={() => this.props.navigation.navigate('Feed')}>
             <Text style={styles.labelBtn}>{"SIGN IN"}</Text>
           </Button>
           <View style={styles.infoFooter}>
-            <Text style={styles.textInfo}>{"I already have an account."} <Text style={styles.textInfoLink} onPress={()=>this.props.navigation.goBack()}>{"Sign in"}</Text></Text>
+            <Text style={styles.textInfo}>{"I already have an account."} <Text style={styles.textInfoLink} onPress={() => this.props.navigation.goBack()}>{"Sign in"}</Text></Text>
           </View>
         </View>
       </View>

@@ -5,6 +5,7 @@ import { createStackNavigator } from '@react-navigation/stack';
 import Login from './../screens/Login';
 import Register from './../screens/Register';
 import Feed from './../screens/Feed';
+import CreatePost from './../screens/CreatePost';
 
 const Stack = createStackNavigator();
 
@@ -15,6 +16,7 @@ function RouteNavigation() {
 				<Stack.Screen name="Login" component={Login} />
 				<Stack.Screen name="Register" component={Register} />
 				<Stack.Screen name="Feed" component={Feed} />
+				<Stack.Screen name="CreatePost" component={CreatePost} />
 			</Stack.Navigator>
 		</NavigationContainer>
 	);

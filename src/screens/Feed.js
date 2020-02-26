@@ -12,6 +12,10 @@ class Feed extends Component {
 		};
 	}
 
+	handleComment() {
+		this.props.navigation.navigate('CreatePost')
+	}
+
 	render() {
 
 		this.props.navigation.setOptions({
@@ -35,6 +39,7 @@ class Feed extends Component {
 								userName={item.createdBy.fullName}
 								datePost={item.createdAt}
 								caption={item.text}
+								actionComment={()=>this.handleComment()}
 							/>
 							:
 							<CardFeed
@@ -43,6 +48,7 @@ class Feed extends Component {
 								datePost={item.createdAt}
 								caption={item.text}
 								imagePost={item.image}
+								actionComment={()=>this.handleComment()}
 							/>
 					)}
 				</ScrollView>
