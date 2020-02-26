@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import { View, Text, Image, StatusBar, ScrollView } from 'react-native';
-import { Thumbnail, Icon } from 'native-base';
+import { View, Image, StatusBar, ScrollView } from 'react-native';
+import { Thumbnail, Icon, Fab } from 'native-base';
 
 import CardFeed from './../components/CardFeed';
 import data_feed from '../api/data_feed';
@@ -54,6 +54,15 @@ class Feed extends Component {
 							/>
 					)}
 				</ScrollView>
+				<Fab
+					active={this.state.active}
+					direction="up"
+					containerStyle={{}}
+					style={{ backgroundColor: '#45AAF2' }}
+					position="bottomRight"
+					onPress={() => this.props.navigation.navigate('CreatePost')}>
+					<Icon type="MaterialIcons" name="mode-edit" />
+				</Fab>
 			</View>
 		);
 	}
