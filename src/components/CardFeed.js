@@ -18,7 +18,7 @@ renderViewLess = (onPress) => {
 
 const CardFeed = (props) => {
   return (
-    <View style={styles.container}>
+    <TouchableOpacity activeOpacity={1} style={styles.container} onPress={props.navigateDetail}>
       <View style={styles.sectionUser}>
         <Thumbnail source={props.userImage} style={styles.avatar} />
         <View style={styles.infoUser}>
@@ -52,7 +52,7 @@ const CardFeed = (props) => {
           <Text style={styles.textAction}>{"Share"}</Text>
         </TouchableOpacity>
       </View>
-    </View>
+    </TouchableOpacity>
   )
 }
 
