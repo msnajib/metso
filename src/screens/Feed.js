@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { View, Image, StatusBar, ScrollView } from 'react-native';
 import { Thumbnail, Icon, Fab } from 'native-base';
+import axios from 'axios';
 
 import CardFeed from './../components/CardFeed';
 import data_feed from '../api/data_feed';
@@ -9,7 +10,34 @@ class Feed extends Component {
 	constructor(props) {
 		super(props);
 		this.state = {
+			posts: []
 		};
+	}
+
+	componentDidMount () {
+		axios({
+			url: "https://socmed1582223928948.mejik.id/graphql",
+			method: "POST",
+			data: {
+				query: `
+					query{
+						posts {
+							id
+							text
+							createdAt
+							createdBy {
+								firstName
+							}
+						}
+					}
+				`,
+			}
+		}).then(res => {
+			console.log(res.data.data.posts)
+			this.setState({
+				posts: res.data.data.posts
+			})
+		})
 	}
 
 	handleComment() {
@@ -17,7 +45,8 @@ class Feed extends Component {
 	}
 
 	render() {
-
+		console.log("this is state posts from render.")
+		console.log(this.state.posts);
 		this.props.navigation.setOptions({
 			headerTitleAlign: "center",
 			headerLeft: () => <Thumbnail source={{ uri: 'https://i.pravatar.cc/300' }} style={{ width: 32, height: 32 }} />,
@@ -29,15 +58,15 @@ class Feed extends Component {
 		});
 
 		return (
-			<View style={{ backgroundColor: '#ffffff' }}>
+			<View style={{ backgroundColor: '#ffffff', flex: 1 }}>
 				<StatusBar backgroundColor="#007BBF" barStyle="light-content" />
 				<ScrollView>
-					{data_feed.map((item) =>
-						item.image === "" ?
+					{this.state.posts.map((item) =>
+						item.image === "" || item.image == null ?
 							<CardFeed
-								navigateDetail={() => this.props.navigation.navigate('DetailPost', { item })}
-								userImage={{ uri: item.createdBy.userAvatar }}
-								userName={item.createdBy.fullName}
+								navigateDetail={() => this.props.navigation.navigate('DetailPost', { id: item.id })}
+								userImage={{ uri: "https://i.pravatar.cc/100" }}
+								userName={item.createdBy.firstName}
 								datePost={item.createdAt}
 								caption={item.text}
 								actionComment={() => this.handleComment()}

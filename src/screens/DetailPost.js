@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { View, StyleSheet, StatusBar, ScrollView, Text, TouchableOpacity } from 'react-native';
+import axios from 'axios';
 
 import CardFeed from './../components/CardFeed';
 import CardComment from './../components/CardComment';
@@ -8,8 +9,44 @@ import data_comment from './../api/data_comment';
 class DetailPost extends Component {
   constructor(props) {
     super(props);
+    this.id = props.route.params.id
     this.state = {
     };
+  }
+
+  componentDidMount() {
+    axios({
+      url: 'https://socmed1582223928948.mejik.id/graphql',
+      method: 'POST',
+      data: {
+        variables: {
+          id: this.id
+        },
+        query: `
+          query($id: String!){
+            post(id: $id) {
+              id
+              text
+              createdAt
+              createdBy{
+                firstName
+              }
+              comments {
+                id
+                text
+                createdAt
+                createdBy {
+                  firstName
+                }
+              }
+            }
+          }
+        `,
+      }
+    })
+    .then(res => {
+      console.log(res)
+    })
   }
 
   handleComment() {
@@ -18,14 +55,17 @@ class DetailPost extends Component {
 
   render() {
 
+    return (
+      <View>
+        <Text>{this.id}</Text>
+      </View>
+    )
     this.props.navigation.setOptions({
       headerTitle: 'Detail Post',
       headerTitleStyle: styles.titleHeader,
       headerStyle: { backgroundColor: '#45AAF2', elevation: 0 },
       headerTintColor: '#ffffff'
     });
-
-    let item = this.props.route.params.item
 
     return (
       <View style={{ flex: 1, backgroundColor: '#ffffff' }}>
