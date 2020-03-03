@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, StyleSheet, StatusBar, ScrollView, Text, TouchableOpacity } from 'react-native';
+import { View, StyleSheet, StatusBar, ScrollView, Text, TouchableOpacity, ActivityIndicator } from 'react-native';
 import axios from 'axios';
 
 import CardFeed from './../components/CardFeed';
@@ -11,6 +11,7 @@ class DetailPost extends Component {
     super(props);
     this.id = props.route.params.id
     this.state = {
+      item: null
     };
   }
 
@@ -45,7 +46,10 @@ class DetailPost extends Component {
       }
     })
     .then(res => {
-      console.log(res)
+      console.log(res.data.data.post);
+      this.setState({
+        item: res.data.data.post 
+      })
     })
   }
 
@@ -54,12 +58,6 @@ class DetailPost extends Component {
   }
 
   render() {
-
-    return (
-      <View>
-        <Text>{this.id}</Text>
-      </View>
-    )
     this.props.navigation.setOptions({
       headerTitle: 'Detail Post',
       headerTitleStyle: styles.titleHeader,
@@ -67,17 +65,20 @@ class DetailPost extends Component {
       headerTintColor: '#ffffff'
     });
 
+    if (this.state.item == null) 
+      return <ActivityIndicator style={{marginTop: 100}}/>
+
     return (
       <View style={{ flex: 1, backgroundColor: '#ffffff' }}>
         <StatusBar backgroundColor="#007BBF" barStyle="light-content" />
         <ScrollView>
           <View>
-            {item.image === "" ?
+            {this.state.item.image === "" || this.state.item.image == null ?
               <CardFeed
-                userImage={{ uri: item.createdBy.userAvatar }}
-                userName={item.createdBy.fullName}
-                datePost={item.createdAt}
-                caption={item.text}
+                userImage={{ uri: "https://i.pravatar.cc/100" }}
+                userName={this.state.item.createdBy.firstName}
+                datePost={this.state.item.createdAt}
+                caption={this.state.item.text}
                 actionComment={() => this.handleComment()} />
               :
               <CardFeed
@@ -96,12 +97,12 @@ class DetailPost extends Component {
             </View>
           </View>
 
-          {data_comment.map((item) =>
+          {this.state.item.comments.map((itemComment) =>
             <CardComment
-              userImage={{ uri: item.createdBy.userAvatar }}
-              userName={item.createdBy.fullName}
-              dateComment={item.createdAt}
-              comment={item.text}
+              userImage={{ uri: "https://i.pravatar.cc/100" }}
+              userName={itemComment.createdBy.firstName}
+              dateComment={itemComment.createdAt}
+              comment={itemComment.text}
             />
           )}
         </ScrollView>
